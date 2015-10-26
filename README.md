@@ -1,3 +1,3 @@
 # pinterest-boardid
 
-Check the index.php for an example.
+Check the get.php for an example.
