@@ -42,7 +42,7 @@ class Pinterest
     private function findBoardIdInTxt()
     {
         if (file_exists($this->filename)) {
-            $search = '"board", "id": "';
+            $search = '"board", "id: "';
             $contents = file_get_contents($this->filename);
             $pattern = preg_quote($search, '/');
             $pattern = "/^.*$pattern.*\$/m";
@@ -50,10 +50,10 @@ class Pinterest
             if (preg_match_all($pattern, $contents, $matches)) {
 
                 #We only needs to read only some few lines from the txt file
-                $fisk = substr(implode("\n", $matches[0]), 1500, 1000);
+                $text = substr(implode("\n", $matches[0]), 1500, 1000);
 
                 # Run our new regular expression with the new pattern and search after  "board", "id": "get-the-id-here",
-                if (preg_match("/\"board\", \"id\": \"\s*(((?!board\", \"id\": \"|\", \"name\":).)+)\s*\", \"name\":/m", $fisk, $out)) {
+                if (preg_match("/\"board\", \"id\": \"\s*(((?!board\", \"id\": \"|\", \"name\":).)+)\s*\", \"name\":/m", $text, $out)) {
                     $this->id = $out[1];
                 } else {
                     $this->error_message = "The Pinterest Board is nod valid.";
